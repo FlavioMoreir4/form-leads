@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <h2>JavaScript Class Method</h2>
+    <p id="demo"></p>
+    <script>
+
+        class Consult {
+            constructor(url, param) {
+                this.URL = url;
+                this.ParamURL = param;
+            }
+            get result() {
+                return fetch(this.URL, {
+                    method: "POST",
+                    body: this.ParamURL,
+                    headers: {
+                        "Content-type": "application/x-www-form-urlencoded"
+                    }
+                })
+            }
+        }
+        myCons = new Consult("https://ipadraomilitar.com.br/api/ajax.php", "r=ALL")
+
+        myCons.result.then(e => e.json())
+            .then(function (e) {
+                console.log(e)
+                for (var t = 0; t < e.length; t++) {
+                    var a = document.createElement("li");
+                    a.innerText = e[t].nome, document.getElementById("demo").appendChild(a), console.log(e[t].nome)
+                }
+            })
+    </script>
+
+</body>
+
+</html>
