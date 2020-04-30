@@ -8,9 +8,9 @@
     <script>
 
         class Consult {
-            constructor(url, param) {
-                this.URL = url;
-                this.ParamURL = param;
+            constructor(URL, ParamURL) {
+                this.URL = URL;
+                this.ParamURL = ParamURL;
             }
             get result() {
                 return fetch(this.URL, {
@@ -22,9 +22,34 @@
                 })
             }
         }
-        myCons = new Consult("https://ipadraomilitar.com.br/api/ajax.php", "r=ALL")
 
-        myCons.result.then(e => e.json())
+        class MyFetch {
+            constructor(URL, ParamURL) {
+                this.URL = URL;
+                this.ParamURL = ParamURL;
+            }
+            
+            get Consult() {
+                return fetch(this.URL, {
+                    method: "POST",
+                    body: this.ParamURL,
+                    headers: {
+                        "Content-type": "application/x-www-form-urlencoded"
+                    }
+                })
+            }
+            
+            get Insert() {
+                return fetch(this.URL, {
+                    method: "POST",
+                    body: this.ParamURL,
+                })
+            }
+        }
+
+        myCons = new MyFetch("https://ipadraomilitar.com.br/api/ajax.php", "r=ALL")
+
+        myCons.Consult.then(e => e.json())
             .then(function (e) {
                 console.log(e)
                 for (var t = 0; t < e.length; t++) {
